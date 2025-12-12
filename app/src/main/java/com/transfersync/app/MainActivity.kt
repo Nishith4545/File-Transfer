@@ -1,7 +1,5 @@
-
-package com.example.transferapp
+package com.transfersync.app
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
@@ -211,7 +209,7 @@ class MainActivity : AppCompatActivity() {
     private suspend fun disconnectFromRouter(): Boolean {
         return withContext(Dispatchers.IO) {
             try {
-                val wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as android.net.wifi.WifiManager
+                val wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
 
                 if (!wifiManager.isWifiEnabled) {
                     appendLog("⚡ Enabling WiFi...")
@@ -469,7 +467,7 @@ class MainActivity : AppCompatActivity() {
         val names = list.map { "${it.deviceName} [${it.status.toStatusString()}]" }
 
         runOnUiThread {
-            listPeers.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, names)
+            listPeers.adapter = ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, names)
             appendLog("📱 Found ${list.size} peer(s)")
         }
     }
